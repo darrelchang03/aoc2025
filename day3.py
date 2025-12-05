@@ -7,9 +7,6 @@ Test input:
 Test answer: 357
 """
 
-from os import wait
-
-
 def getBankMaxPart1(line: str) -> int:
     res = 0
     if len(line) == 1:
