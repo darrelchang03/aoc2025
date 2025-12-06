@@ -8,25 +8,22 @@ def mergeIntervals(intervals):
             merged_intervals[-1][1] = max(end, merged_intervals[-1][1])
     return merged_intervals
 
-def getIntervalsAndIDs():
+def getIntervalsAndIDs(fileName):
     intervals = []
     ids = []
 
-    with open("day5_input.txt", 'r') as f:
-        lines = [line.rstrip() for line in f]
-        i = 0
-
-        while lines[i]:
-            split_line = lines[i].split('-')
+    with open(fileName, 'r') as f:
+        for line in f:
+            line = line.rstrip()
+            if not line:
+                break
+            split_line = line.split('-')
             intervals.append([int(split_line[0]), int(split_line[1])])
-            i += 1
 
-        i += 1
+        for line in f:
+            ids.append(int(line.rstrip()))
 
-        while i < len(lines):
-            ids.append(int(lines[i]))
-            i += 1
-        return intervals, ids
+    return intervals, ids
 
 def getFreshIDs(intervals, ids):
     freshIDs = []
@@ -36,12 +33,12 @@ def getFreshIDs(intervals, ids):
                 freshIDs.append(id)
     return freshIDs
 
-def part1():
-    intervals, ids = getIntervalsAndIDs()
+def part1(fileName):
+    intervals, ids = getIntervalsAndIDs(fileName)
     mergedIntervals = mergeIntervals(intervals)
     freshIDs = getFreshIDs(mergedIntervals, ids)
     print(len(freshIDs))
-#part1()
+
 
 def getNumFreshIDs(intervals):
     freshIDs = 0
@@ -49,9 +46,15 @@ def getNumFreshIDs(intervals):
         freshIDs += end - start + 1
     return freshIDs
 
-def part2():
-    intervals, _ = getIntervalsAndIDs()
+def part2(fileName):
+    intervals, _ = getIntervalsAndIDs(fileName)
     mergedIntervals = mergeIntervals(intervals)
     numFreshIDs = getNumFreshIDs(mergedIntervals)
     print(numFreshIDs)
-part2()
+
+if __name__ == "__main__":
+    part1("day5_input.txt")
+    part1("day5_test_input.txt")
+    print()
+    part2("day5_input.txt")
+    part2("day5_test_input.txt")
