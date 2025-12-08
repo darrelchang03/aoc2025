@@ -1,7 +1,6 @@
 from sys import maxsize
 from functools import lru_cache
 
-
 def getLines(fileName):
     with open(fileName, 'r') as f:
         return [line.rstrip() for line in f.readlines()]
