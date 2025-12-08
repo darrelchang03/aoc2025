@@ -36,23 +36,23 @@ def part2(nums, ops):
     res = 0
     acc = 0
     for num in nums:
-        try:
-            num = int(num)
-            if op == "*":
-                if acc:
-                    acc *= num
-                else:
-                    acc = num
-            if op == "+":
-                if acc:
-                    acc += num
-                else:
-                    acc = num
-        except:
+        if not num.strip():
             i += 1
             op = ops[i]
             res += acc
             acc = 0
+            continue
+        num = int(num)
+        if op == "*":
+            if acc:
+                acc *= num
+            else:
+                acc = num
+        if op == "+":
+            if acc:
+                acc += num
+            else:
+                acc = num
     res += acc
     return res
 

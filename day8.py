@@ -34,11 +34,11 @@ def part1(pairs):
         if not found:
             circuits.append({p1, p2})
         else:
-            merged = {p1, p2}
-            for c in found:
-                merged |= c
-                circuits.remove(c)
-            circuits.append(merged)
+            mergedCircuit = {p1, p2}
+            for circuit in found:
+                mergedCircuit |= circuit
+                circuits.remove(circuit)
+            circuits.append(mergedCircuit)
 
     circuitSizes = [len(circuit) for circuit in circuits]
     circuitSizes.sort(reverse=True)
