@@ -44,8 +44,31 @@ def part1(pairs):
     circuitSizes.sort(reverse=True)
     return product(circuitSizes[:3])
 
+def part2(pairs):
+    circuits = []
+    for p1, p2 in pairs:
+        found = []
+        for circuit in circuits:
+            if p1 in circuit or p2 in circuit:
+                found.append(circuit)
+        if not found:
+            circuits.append({p1, p2})
+        else:
+            mergedCircuit = {p1, p2}
+            for circuit in found:
+                mergedCircuit |= circuit
+                circuits.remove(circuit)
+            circuits.append(mergedCircuit)
+
+    circuitSizes = [len(circuit) for circuit in circuits]
+    circuitSizes.sort(reverse=True)
+    return product(circuitSizes[:3])
+
 coords = getCoordinates(INPUT)
-sorted = getTopKClosestCoordinates(coords, K)
-circuits = part1(sorted)
+sortedPart1 = getTopKClosestCoordinates(coords, K)
+circuits = part1(sortedPart1)
 print(circuits)
+
+sortedPart2 = getTopKClosestCoordinates(coords, 99999999)
+circuits = part2(sortedPart2)
 
